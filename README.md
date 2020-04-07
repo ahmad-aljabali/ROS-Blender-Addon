@@ -18,24 +18,24 @@ Download ROS_addon.zip to install it in blender.
 ## Planed Improvements
 ### Short term:
 #### UI:
--Lock view to object or camera
+- Lock view to object or camera
 
--Variable FPS for camera publishing and saving
+- Variable FPS for camera publishing and saving
 
--option to Define ROS node name
+- option to Define ROS node name
 #### ROS:
--Add rotation message [geometry_msgs/Quaternion](https://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
+- Add rotation message [geometry_msgs/Quaternion](https://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
 
--Implement camera Publishing
+- Implement camera Publishing
 ### Long term:
 #### UI:
--Option to Lock Axis (i.e select X-position is not effected by message)
+- Option to Lock Axis (i.e select X-position is not effected by message)
 #### ROS:
--Add support for velocity, acceleration etc.. messages
+- Add support for velocity, acceleration etc.. messages
 
--Add multi-cam\stereo support
+- Add multi-cam\stereo support
 
--Add generic float and int messages to control any value inside Blender 
+- Add generic float and int messages to control any value inside Blender 
 
 
 
@@ -44,4 +44,4 @@ Download ROS_addon.zip to install it in blender.
 - Camera publishing is not yet implemented but SAVE IS functional.
 
 
-NOTE: (geometry_msgs) and (sensor_msgs) are included In the zip file for user convenience, I don't own them they're a direct copy from ROS repositories.
+**NOTE: (geometry_msgs) and (sensor_msgs) are included In the zip file for user convenience, I don't own them they're a direct copy from ROS repositories.**
