@@ -3,6 +3,9 @@ Add-on to use Blender for visualization with ROS (Robot Operating System).
 
 Download ROS_addon.zip to install it in blender.
 
+![Screenshot](https://github.com/ahmad-aljabali/ROS-Blender-Addon/blob/master/ROS_addon%20screenshot.png)
+
+
 ## Features
 - Control objects Location using [geometry_msgs/Point](https://docs.ros.org/api/geometry_msgs/html/msg/Point.html)
 
