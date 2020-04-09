@@ -5,7 +5,7 @@ bpy.types.Object.topic = bpy.props.StringProperty(name="Topic")
 bpy.types.Object.mode_type = bpy.props.EnumProperty(items = [("none", "None", "", 1),("subscriber", "Subscriber", "", 2),("publisher", "Publisher", "", 3)],
                                                          description="Mode for ROS topic")
 
-bpy.types.Object.message_type = bpy.props.EnumProperty(items = [("Point", "Point", "", 1),("Pose", "Pose", "", 2)],
+bpy.types.Object.message_type = bpy.props.EnumProperty(items = [("Point", "Point", "", 1), ("Quaternion", "Quaternion (Rotation)", "", 2),("Pose", "Pose", "", 3)],
                                                          description="Message type used by ROS")
 
 class ROS_PT_object_settings(bpy.types.Panel):

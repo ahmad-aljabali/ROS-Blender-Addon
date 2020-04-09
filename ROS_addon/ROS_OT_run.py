@@ -1,6 +1,6 @@
 import bpy
 import rospy
-from geometry_msgs.msg import Point, Pose
+from geometry_msgs.msg import Point, Quaternion, Pose
 from sensor_msgs.msg import Image
 from functools import partial
 import time
@@ -10,7 +10,7 @@ class ROS_OT_run(bpy.types.Operator):
     bl_idname = "ros.run"
     bl_label = "subscribe operator"
 
-    msgs = {'Point':Point, 'Pose':Pose}
+    msgs = {'Point':Point, 'Quaternion':Quaternion,'Pose':Pose}
 
     def modal(self, context, event):
         if event.type == 'TIMER':
@@ -81,39 +81,47 @@ class ROS_OT_run(bpy.types.Operator):
         return {'RUNNING_MODAL'}
 
 
+    def pointCB(self, msg, object):
+        object.location.x = msg.x
+        object.location.y = msg.y
+        object.location.z = msg.z
+
+    def quaternionCB(self, msg, object):
+        object.rotation_quaternion.w = msg.w
+        object.rotation_quaternion.x = msg.x
+        object.rotation_quaternion.y = msg.y
+        object.rotation_quaternion.z = msg.z
 
     def callback(self, msg, object=None):
         if object.message_type == 'Point':
-            object.location.x = msg.x
-            object.location.y = msg.y
-            object.location.z = msg.z
+            self.pointCB(msg,object)
+        elif object.message_type == 'Quaternion':
+            self.quaternionCB(msg,object)
         elif object.message_type == 'Pose':
-            pass
-            p = msg.position
-            object.location.x = p.x
-            object.location.y = p.y
-            object.location.z = p.z
-            o = msg.orientation
-            object.rotation_quaternion.w = o.w
-            object.rotation_quaternion.x = o.x
-            object.rotation_quaternion.y = o.y
-            object.rotation_quaternion.z = o.z
+            self.pointCB(msg.position, object)
+            self.quaternionCB(msg.orientation, object)
 
+    def pointMsg(self,object):
+        msg = Point()
+        msg.x, msg.y, msg.z = object.location.x, object.location.y, object.location.z
+        return msg
+
+    def quaternionMsg(self,object):
+        msg = Quaternion()
+        msg.w, msg.x, msg.y, msg.z = object.rotation_quaternion.w, object.rotation_quaternion.x, object.rotation_quaternion.y, object.rotation_quaternion.z
+        return msg
 
     def object_pub(self):
         for name in self.pub_objects:
             object = bpy.data.objects[name]
             if object.message_type == 'Point':
-                msg = Point()
-                msg.x, msg.y, msg.z = object.location.x, object.location.y, object.location.z
-                self.publishers[name].publish(msg)
+                self.publishers[name].publish(self.pointMsg(object))
+            if object.message_type == 'Quaternion':
+                self.publishers[name].publish(self.quaternionMsg(object))
             if object.message_type == 'Pose':
                 msg = Pose()
-                p = msg.position
-                p.x, p.y, p.z = object.location.x, object.location.y, object.location.z
-                o = msg.orientation
-                o.w, o.x, o.y, o.z = object.rotation_quaternion.w, object.rotation_quaternion.x, object.rotation_quaternion.y, object.rotation_quaternion.z
-
+                msg.position = self.pointMsg(object)
+                msg.orientation = self.quaternionMsg(object)
                 self.publishers[name].publish(msg)
 
     def camera_pub(self, context):
