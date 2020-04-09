@@ -7,13 +7,11 @@ Download ROS_addon.zip to install it in blender.
 
 
 ## Features
-- Control objects Location using [geometry_msgs/Point](https://docs.ros.org/api/geometry_msgs/html/msg/Point.html)
+- Control and Publish objects Location using [geometry_msgs/Point](https://docs.ros.org/api/geometry_msgs/html/msg/Point.html)
 
-- Control objects Location & Rotation using [geometry_msgs/Pose](https://docs.ros.org/api/geometry_msgs/html/msg/Pose.html)
+- Control and Publish objects Rotation using [geometry_msgs/Quaternion](https://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
 
-- Publish objects Location using [geometry_msgs/Point](https://docs.ros.org/api/geometry_msgs/html/msg/Point.html)
-
-- Publish objects Location & Rotation using [geometry_msgs/Pose](https://docs.ros.org/api/geometry_msgs/html/msg/Pose.html)
+- Control and Publish objects Location & Rotation using [geometry_msgs/Pose](https://docs.ros.org/api/geometry_msgs/html/msg/Pose.html)
 
 - Save Image sequence to chosen file path
 
@@ -27,8 +25,6 @@ Download ROS_addon.zip to install it in blender.
 
 - option to Define ROS node name
 #### ROS:
-- Add rotation message [geometry_msgs/Quaternion](https://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
-
 - Implement camera Publishing
 ### Long term:
 #### UI:
