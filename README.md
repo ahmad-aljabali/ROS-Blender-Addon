@@ -17,13 +17,13 @@ Download ROS_addon.zip to install it in blender.
 
 - Save Image sequence to chosen file path
 
+- Adjustable Publish Rate
+
 
 ## Planed Improvements
 ### Short term:
 #### UI:
 - Lock view to object or camera
-
-- Variable FPS for camera publishing and saving
 
 - option to Define ROS node name
 #### ROS:
