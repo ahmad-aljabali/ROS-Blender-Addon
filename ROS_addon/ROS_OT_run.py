@@ -40,7 +40,7 @@ class ROS_OT_run(bpy.types.Operator):
 
         wm = context.window_manager
         wm.modal_handler_add(self)
-        self._timer = wm.event_timer_add(1/120, window=context.window)
+        self._timer = wm.event_timer_add(1/context.scene.publish_rate, window=context.window)
 
 
         if rospy.client.rosgraph.is_master_online() == True:
