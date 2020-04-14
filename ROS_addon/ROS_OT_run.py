@@ -44,7 +44,7 @@ class ROS_OT_run(bpy.types.Operator):
 
 
         if rospy.client.rosgraph.is_master_online() == True:
-            rospy.init_node('blender', anonymous=True)
+            rospy.init_node(context.scene.node_name, anonymous=context.scene.anonymous_node_bool)
             if context.scene.ros_video_out_bool==True and context.scene.camera.topic != '':
                 self.cam_pub = rospy.Publisher(context.scene.camera.topic, Image, queue_size=10)
             for object in bpy.data.objects:

@@ -14,7 +14,8 @@ import bpy
 from ROS_addon.ROS_OT_run import ROS_OT_run
 from ROS_addon.ROS_OT_stop import ROS_OT_stop
 from ROS_addon.ROS_PT_run import ROS_PT_run
-from ROS_addon.ROS_PT_camera import ROS_PT_camera
+from ROS_addon.ROS_PT_general_settings import ROS_PT_general_settings
+from ROS_addon.ROS_PT_camera_settings import ROS_PT_camera_settings
 from ROS_addon.ROS_PT_object_settings import ROS_PT_object_settings
 
 def register():
@@ -24,7 +25,8 @@ def register():
 
     #register UI elements
     bpy.utils.register_class(ROS_PT_run)
-    bpy.utils.register_class(ROS_PT_camera)
+    bpy.utils.register_class(ROS_PT_general_settings)
+    bpy.utils.register_class(ROS_PT_camera_settings)
     bpy.utils.register_class(ROS_PT_object_settings)
 
 def unregister():
@@ -34,10 +36,10 @@ def unregister():
 
     #unregister UI elements
     bpy.utils.unregister_class(ROS_PT_run)
-    bpy.utils.unregister_class(ROS_PT_camera)
+    bpy.utils.unregister_class(ROS_PT_general_settings)
+    bpy.utils.unregister_class(ROS_PT_camera_settings)
     bpy.utils.unregister_class(ROS_PT_object_settings)
 
 
 if __name__ == "__main__":
     register()
-

@@ -5,9 +5,9 @@ bpy.types.Scene.ros_video_save_bool = bpy.props.BoolProperty(default=False)
 bpy.types.Object.save_path = bpy.props.StringProperty(name="Save_path")
 
 
-class ROS_PT_camera(bpy.types.Panel):
-    bl_idname = "ROS_PT_camera"
-    bl_label = "camera"
+class ROS_PT_camera_settings(bpy.types.Panel):
+    bl_idname = "ROS_PT_camera_settings"
+    bl_label = "Camera Settings"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "ROS Bridge"
