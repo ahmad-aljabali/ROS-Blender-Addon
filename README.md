@@ -20,22 +20,16 @@ Download ROS_addon.zip to install it in blender.
 
 ## Planed Improvements
 ### Short term:
-#### UI:
-- Lock view to object or camera
-
-- option to Define ROS node name
-#### ROS:
 - Implement camera Publishing
 ### Long term:
 #### UI:
 - Option to Lock Axis (i.e select X-position is not effected by message)
 #### ROS:
+- Add generic float and int messages to control any value inside Blender 
+
 - Add support for velocity, acceleration etc.. messages
 
 - Add multi-cam\stereo support
-
-- Add generic float and int messages to control any value inside Blender 
-
 
 
 ## Known Issues
