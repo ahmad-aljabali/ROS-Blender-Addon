@@ -2,6 +2,10 @@
 Add-on to use Blender for visualization with ROS (Robot Operating System).
 
 Download ROS_addon.zip to install it in blender.
+## Install dependancies
+```Shell
+sudo apt install python3-rospy python3-opencv python3-cv-bridge
+```
 
 ![Screenshot](https://github.com/ahmad-aljabali/ROS-Blender-Addon/blob/master/ROS_addon%20screenshot.png)
 
@@ -13,15 +17,14 @@ Download ROS_addon.zip to install it in blender.
 
 - Control and Publish objects Location & Rotation using [geometry_msgs/Pose](https://docs.ros.org/api/geometry_msgs/html/msg/Pose.html)
 
+- Publish Rendered Image Stream using [sensor_msgs/Image](https://docs.ros.org/melodic/api/sensor_msgs/html/msg/Image.html)
+
 - Save Image sequence to chosen file path
 
 - Adjustable Publish Rate
 
 
 ## Planed Improvements
-### Short term:
-- Implement camera Publishing
-### Long term:
 #### UI:
 - Option to Lock Axis (i.e select X-position is not effected by message)
 #### ROS:
@@ -34,7 +37,5 @@ Download ROS_addon.zip to install it in blender.
 
 ## Known Issues
 - Don't Subscribe and Publish to the same topic - **Blender WILL CRASHES!!**
-- Camera publishing is not yet implemented but SAVE IS functional.
-
 
 **NOTE: (geometry_msgs) and (sensor_msgs) are included In the zip file for user convenience, I don't own them they're a direct copy from ROS repositories.**
