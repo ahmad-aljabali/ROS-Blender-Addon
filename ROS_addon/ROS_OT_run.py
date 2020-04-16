@@ -2,6 +2,8 @@ import bpy
 import rospy
 from geometry_msgs.msg import Point, Quaternion, Pose
 from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
+import cv2
 from functools import partial
 import time
 
@@ -37,6 +39,7 @@ class ROS_OT_run(bpy.types.Operator):
         self.subscribers = []
         self.publishers = {}
         self.pub_objects = []
+        self.bridge = CvBridge()
 
         wm = context.window_manager
         wm.modal_handler_add(self)
@@ -55,28 +58,6 @@ class ROS_OT_run(bpy.types.Operator):
                     object.rotation_mode = 'QUATERNION'
                     self.pub_objects.append(object.name_full)
                     self.publishers[object.name_full] = rospy.Publisher(object.topic, self.msgs[object.message_type], queue_size=1)
-
-
-
-        # switch on nodes
-        context.scene.use_nodes = True
-        tree = context.scene.node_tree
-        links = tree.links
-
-        # clear default nodes
-        for n in tree.nodes:
-            tree.nodes.remove(n)
-
-        # create input render layer node
-        rl = tree.nodes.new('CompositorNodeRLayers')
-        rl.location = 185,285
-
-        # create output node
-        v = tree.nodes.new('CompositorNodeViewer')
-        v.location = 750,210
-        v.use_alpha = False
-
-        links.new(rl.outputs[0], v.inputs[0])  # link Image output to Viewer input
 
         return {'RUNNING_MODAL'}
 
@@ -126,8 +107,14 @@ class ROS_OT_run(bpy.types.Operator):
 
     def camera_pub(self, context):
         bpy.ops.render.render()
-        if context.scene.ros_video_out_bool==True and context.scene.camera.topic!='':
-            pixels = bpy.data.images['Viewer Node'].pixels
-
+        save_path = ""
         if context.scene.ros_video_save_bool == True and context.scene.camera.save_path != '':
-            bpy.data.images['Render Result'].save_render(filepath=context.scene.camera.save_path +"/"+str(time.time_ns())+"."+context.scene.render.image_settings.file_format)
+            save_path = context.scene.camera.save_path +"/"+str(time.time_ns())+"."+context.scene.render.image_settings.file_format
+            bpy.data.images['Render Result'].save_render(filepath= save_path)
+        else:
+            save_path = "./tmp/render_result."+context.scene.render.image_settings.file_format
+            bpy.data.images['Render Result'].save_render(filepath= save_path)
+
+        if context.scene.ros_video_out_bool==True and context.scene.camera.topic!='':
+            img = cv2.imread(save_path)
+            self.cam_pub.publish(self.bridge.cv2_to_imgmsg(img, encoding="passthrough"))
