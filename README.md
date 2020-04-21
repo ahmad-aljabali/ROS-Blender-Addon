@@ -1,12 +1,15 @@
 # ROS-Blender-Addon
 Add-on to use Blender for visualization with ROS (Robot Operating System).
 
-Download ROS_addon.zip to install it in blender.
-## Install dependancies
+
+## Install instructions
+- Download [ROS_addon.zip](https://github.com/ahmad-aljabali/ROS-Blender-Addon/raw/master/ROS_addon.zip) to install it from blender->Edit->Preferences->Add-ons->Install.
+- Install Python dependencies
 ```Shell
 sudo apt install python3-rospy python3-opencv python3-cv-bridge
 ```
 
+## Screenshots of UI
 ![Screenshot](https://github.com/ahmad-aljabali/ROS-Blender-Addon/blob/master/ROS_addon%20screenshot.png)
 
 
