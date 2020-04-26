@@ -15,18 +15,15 @@ class ROS_PT_general_settings(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        col = layout.column()
         if context.scene.ros_run_bool == False:
-            #layout.prop(context.scene,'anonymous_node_bool', text="Anonymous ROS Node")
-            #if context.scene.anonymous_node_bool == False:
-            #    layout.label(text="Node Name:")
-            #    layout.prop(context.scene, "node_name", text="")
-            layout.label(text='Publish Rate')
-            layout.prop(context.scene, 'publish_rate', text='')
-            layout.label(text='View Lock:')
-            row = layout.row()
+            col.label(text='Publish Rate')
+            col.prop(context.scene, 'publish_rate', text='')
+            col.label(text='View Lock:')
+            row = col.row()
             row.label(text='Lock to Object')
             row.prop(context.space_data, 'lock_object', text='')
-            layout.prop(context.space_data, 'lock_camera', text='Lock Camera to View')
-            layout.operator('view3d.view_lock_clear', text='Clear View Lock')
+            col.prop(context.space_data, 'lock_camera', text='Lock Camera to View')
+            col.operator('view3d.view_lock_clear', text='Clear View Lock')
         elif context.scene.ros_run_bool == True:
             layout.label(text="STOP to change settings")

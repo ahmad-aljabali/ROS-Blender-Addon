@@ -2,7 +2,7 @@ import bpy
 
 bpy.types.Scene.ros_video_out_bool = bpy.props.BoolProperty(default=False)
 bpy.types.Scene.ros_video_save_bool = bpy.props.BoolProperty(default=False)
-bpy.types.Object.save_path = bpy.props.StringProperty(name="Save_path")
+bpy.types.Object.save_path = bpy.props.StringProperty(name="Save_path", subtype="DIR_PATH")
 
 
 class ROS_PT_camera_settings(bpy.types.Panel):
