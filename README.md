@@ -28,10 +28,8 @@ sudo apt install python3-rospy python3-opencv python3-cv-bridge
 
 
 ## Planed Improvements
-#### UI:
-- Option to Lock Axis (i.e select X-position is not effected by message)
 #### ROS:
-- Add generic float and int messages to control any value inside Blender 
+- Add generic float and int messages to control any value inside Blender
 
 - Add support for velocity, acceleration etc.. messages
 
