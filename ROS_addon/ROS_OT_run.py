@@ -2,6 +2,7 @@ import bpy
 import rospy
 from geometry_msgs.msg import Point, Quaternion, Pose
 from sensor_msgs.msg import Image
+from std_msgs.msg import Int64, Float64
 from cv_bridge import CvBridge
 import cv2
 from functools import partial
@@ -12,7 +13,7 @@ class ROS_OT_run(bpy.types.Operator):
     bl_idname = "ros.run"
     bl_label = "subscribe operator"
 
-    msgs = {'Point':Point, 'Quaternion':Quaternion,'Pose':Pose}
+    msgs = {'Point':Point, 'Quaternion':Quaternion,'Pose':Pose, 'Int64':Int64, 'Float64':Float64}
 
     def modal(self, context, event):
         if event.type == 'TIMER':
@@ -24,6 +25,7 @@ class ROS_OT_run(bpy.types.Operator):
                 return {'FINISHED'}
             else:
                 self.object_pub()
+                self.prop_pub()
                 if context.scene.ros_video_out_bool==True or  context.scene.ros_video_save_bool==True:
                     self.camera_pub(context)
                 return {'RUNNING_MODAL'}
@@ -39,6 +41,7 @@ class ROS_OT_run(bpy.types.Operator):
         self.subscribers = []
         self.publishers = {}
         self.pub_objects = []
+        self.pub_props = []
         self.bridge = CvBridge()
 
         wm = context.window_manager
@@ -53,11 +56,18 @@ class ROS_OT_run(bpy.types.Operator):
             for object in bpy.data.objects:
                 if object.mode_type == 'subscriber' and object.topic != '':
                     object.rotation_mode = 'QUATERNION'
-                    self.subscribers.append(rospy.Subscriber(object.topic, self.msgs[object.message_type], partial(self.callback,object=object)))
+                    self.subscribers.append(rospy.Subscriber(object.topic, self.msgs[object.message_type], partial(self.object_callback,object=object)))
                 if object.mode_type == 'publisher' and object.topic != '':
                     object.rotation_mode = 'QUATERNION'
                     self.pub_objects.append(object.name_full)
                     self.publishers[object.name_full] = rospy.Publisher(object.topic, self.msgs[object.message_type], queue_size=1)
+
+            for prop in bpy.context.scene.ros_properties_list.items:
+                if prop.mode_type == 'subscriber' and prop.topic != '':
+                    self.subscribers.append(rospy.Subscriber(prop.topic, self.msgs[prop.message_type], partial(self.prop_callback,prop=prop)))
+                if prop.mode_type == 'publisher' and prop.topic != '':
+                    self.pub_props.append(prop)
+                    self.publishers[prop.property] = rospy.Publisher(prop.topic, self.msgs[prop.message_type], queue_size=1)
 
         return {'RUNNING_MODAL'}
 
@@ -85,7 +95,7 @@ class ROS_OT_run(bpy.types.Operator):
                 object.rotation_euler[i] = old_rotation[i]
 
 
-    def callback(self, msg, object=None):
+    def object_callback(self, msg, object=None):
         if object.message_type == 'Point':
             self.pointCB(msg,object)
         elif object.message_type == 'Quaternion':
@@ -116,6 +126,22 @@ class ROS_OT_run(bpy.types.Operator):
                 msg.position = self.pointMsg(object)
                 msg.orientation = self.quaternionMsg(object)
                 self.publishers[name].publish(msg)
+
+    def prop_callback(self, msg, prop=None):
+        print(msg.data)
+        exec(prop.property + "=" + str(msg.data))
+
+    def prop_pub(self):
+        for prop in self.pub_props:
+            print(prop.property)
+            exec("bpy.context.scene.ros_properties_list.val_hold="+prop.property)
+            val = bpy.context.scene.ros_properties_list.val_hold
+            if prop.message_type == 'Int64':
+                print(int(val))
+                self.publishers[prop.property].publish(Int64(int(val)))
+            if prop.message_type == 'Float64':
+                print(float(val))
+                self.publishers[prop.property].publish(Float64(float(val)))
 
     def camera_pub(self, context):
         bpy.ops.render.render()

@@ -29,7 +29,6 @@ sudo apt install python3-rospy python3-opencv python3-cv-bridge
 
 ## Planed Improvements
 #### ROS:
-- Add generic float and int messages to control any value inside Blender
 
 - Add support for velocity, acceleration etc.. messages
 
