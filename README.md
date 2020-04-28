@@ -22,6 +22,8 @@ sudo apt install python3-rospy python3-opencv python3-cv-bridge
 
 - Publish Rendered Image Stream using [sensor_msgs/Image](https://docs.ros.org/melodic/api/sensor_msgs/html/msg/Image.html)
 
+- Control and Publish any value inside Blender using [std_msgs/Float64](https://docs.ros.org/api/std_msgs/html/msg/Float64.html) and [std_msgs/Int64](https://docs.ros.org/api/std_msgs/html/msg/Int64.html)
+
 - Save Image sequence to chosen file path
 
 - Adjustable Publish Rate
