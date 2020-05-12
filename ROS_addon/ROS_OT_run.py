@@ -67,7 +67,7 @@ class ROS_OT_run(bpy.types.Operator):
                     self.subscribers.append(rospy.Subscriber(prop.topic, self.msgs[prop.message_type], partial(self.prop_callback,prop=prop)))
                 if prop.mode_type == 'publisher' and prop.topic != '':
                     self.pub_props.append(prop)
-                    self.publishers[prop.property] = rospy.Publisher(prop.topic, self.msgs[prop.message_type], queue_size=1)
+                    self.publishers[prop.topic] = rospy.Publisher(prop.topic, self.msgs[prop.message_type], queue_size=1)
 
         return {'RUNNING_MODAL'}
 
@@ -128,20 +128,16 @@ class ROS_OT_run(bpy.types.Operator):
                 self.publishers[name].publish(msg)
 
     def prop_callback(self, msg, prop=None):
-        print(msg.data)
-        exec(prop.property + "=" + str(msg.data))
+        prop.value = msg.data
 
     def prop_pub(self):
         for prop in self.pub_props:
-            print(prop.property)
-            exec("bpy.context.scene.ros_properties_list.val_hold="+prop.property)
-            val = bpy.context.scene.ros_properties_list.val_hold
             if prop.message_type == 'Int64':
-                print(int(val))
-                self.publishers[prop.property].publish(Int64(int(val)))
+                print(int(prop.value))
+                self.publishers[prop.topic].publish(Int64(int(prop.value)))
             if prop.message_type == 'Float64':
                 print(float(val))
-                self.publishers[prop.property].publish(Float64(float(val)))
+                self.publishers[prop.topic].publish(Float64(float(prop.value)))
 
     def camera_pub(self, context):
         bpy.ops.render.render()

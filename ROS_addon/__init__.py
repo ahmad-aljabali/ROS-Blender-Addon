@@ -17,7 +17,7 @@ from ROS_addon.ROS_PT_run import ROS_PT_run
 from ROS_addon.ROS_PT_general_settings import ROS_PT_general_settings
 from ROS_addon.ROS_PT_camera_settings import ROS_PT_camera_settings
 from ROS_addon.ROS_PT_object_settings import ROS_PT_object_settings
-from ROS_addon.ROS_PT_custom_properties import CustomPropertyItem, CustomPropertyList, ROS_UL_custom_properties, ROS_PT_custom_properties, ROS_OT_add_custom_property, ROS_OT_del_custom_property
+from ROS_addon.ROS_PT_custom_drivers import CustomDriverItem, CustomDriverList, ROS_UL_custom_drivers, ROS_PT_custom_drivers, ROS_OT_add_custom_driver, ROS_OT_del_custom_driver
 
 classes = (
     ROS_OT_run,
@@ -26,25 +26,25 @@ classes = (
     ROS_PT_general_settings,
     ROS_PT_camera_settings,
     ROS_PT_object_settings,
-    CustomPropertyItem,
-    CustomPropertyList,
-    ROS_UL_custom_properties,
-    ROS_PT_custom_properties,
-    ROS_OT_add_custom_property,
-    ROS_OT_del_custom_property,
+    CustomDriverItem,
+    CustomDriverList,
+    ROS_UL_custom_drivers,
+    ROS_PT_custom_drivers,
+    ROS_OT_add_custom_driver,
+    ROS_OT_del_custom_driver,
 )
 
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
-    bpy.types.Scene.ros_properties_list = bpy.props.PointerProperty(type=CustomPropertyList)
+    bpy.types.Scene.ros_drivers_list = bpy.props.PointerProperty(type=CustomDriverList)
 
 def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
 
-    del bpy.types.Scene.ros_properties_list
+    del bpy.types.Scene.ros_drivers_list
 
 if __name__ == "__main__":
     register()
