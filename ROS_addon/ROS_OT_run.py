@@ -1,9 +1,9 @@
 import bpy
 import rospy
-from geometry_msgs.msg import Point, Quaternion, Pose
-from sensor_msgs.msg import Image
-from std_msgs.msg import Int64, Float64
-from cv_bridge import CvBridge
+from ROS_addon.external.geometry_msgs.msg import Point, Quaternion, Pose
+from ROS_addon.external.sensor_msgs.msg import Image
+from ROS_addon.external.std_msgs.msg import Int64, Float64
+from ROS_addon.external.cv_bridge import CvBridge
 import cv2
 from functools import partial
 import time
