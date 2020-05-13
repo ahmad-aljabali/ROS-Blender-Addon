@@ -40,4 +40,4 @@ sudo apt install python3-rospy python3-opencv
 ## Known Issues
 - Don't Subscribe and Publish to the same topic - **Blender WILL CRASHES!!**
 
-**NOTE: (geometry_msgs) and (sensor_msgs) are included In the zip file for user convenience, I don't own them they're a direct copy from ROS repositories.**
+**NOTE: everything in "/external" is a direct copy from ROS repositories, Only included to avoid import errors.**
