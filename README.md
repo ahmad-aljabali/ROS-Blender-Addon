@@ -29,14 +29,6 @@ sudo apt install python3-rospy python3-opencv
 - Adjustable Publish Rate
 
 
-## Planed Improvements
-#### ROS:
-
-- Add support for velocity, acceleration etc.. messages
-
-- Add multi-cam\stereo support
-
-
 ## Known Issues
 - Don't Subscribe and Publish to the same topic - **Blender WILL CRASHES!!**
 
